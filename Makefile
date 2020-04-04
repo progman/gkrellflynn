@@ -7,7 +7,7 @@ CC = gcc
 CFLAGS = -c -O -Wall -fPIC `${EXTRACONF}`
 
 LD = $(CC)
-LDFLAGS = -shared -Wl -o
+LDFLAGS = -shared -o
 INCPATH  = -I.
 INCPATH += ${GKRELL_INC}
 
