@@ -43,6 +43,8 @@
 
 
 #include <stdlib.h>
+#include <sys/types.h>
+#include <unistd.h>
 
 #define FLYNN_MAJOR_VERSION 0
 #define FLYNN_MINOR_VERSION 5 
@@ -91,6 +93,7 @@ static gchar command_line[256];
 static GtkWidget *terminal_entry;
 static gchar terminal_command_line[256];
 static int child_started = 0;
+static long holdrand = 1L;
 
 void flynn_apply_config(void)
 {
@@ -128,7 +131,7 @@ static void flynn_load_config (gchar *arg)
 }
 
 /* get current cpu usage */
-int getcpu( void )
+int local_getcpu( void )
 {
 	float scale_factor = 1;
 #if 0
@@ -199,6 +202,10 @@ int getcpu( void )
         return ( (int)(percent*100) );
 }
 
+int local_rand()
+{
+	return (((holdrand = holdrand * 214013L + 2531011L) >> 16) & 0x7fff);
+}
 
 static void update_plugin()
 {
@@ -229,7 +236,10 @@ static void update_plugin()
 	   }
 	   else
 	   {
+/*
 		dir = (int)( (float)F_LOOKSTATES * (float)rand() / (RAND_MAX+1.0));
+*/
+		dir = local_rand() % F_LOOKSTATES;
 		switch( dir )
 		{
 			case 0:
@@ -246,7 +256,7 @@ static void update_plugin()
 		if( flynn_look < 0 ) flynn_look = 0;
 		if( flynn_look >= F_LOOKSTATES ) flynn_look = F_LOOKSTATES-1;
 	   }
-		percent = getcpu();
+		percent = local_getcpu();
 
 		image_number = flynn_look * F_TORTURES + (F_TORTURES * percent / 100);
 
@@ -537,6 +547,8 @@ gkrellm_init_plugin()
 
 	/* set defaults */
 	strcpy( terminal_command_line, "/usr/bin/gnome-terminal -x " );
+
+	holdrand = getpid();
 
 	return &plugin_mon;
 }
