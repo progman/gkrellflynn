@@ -1,0 +1,21 @@
+This release supports both GKrellm 1.x and
+GKrellm2.0. Therefore you've got to specify
+for which version you'd like to build this
+beast.
+
+
+GKrellm 1.x:
+
+make gkrellm
+make installgkrellm
+
+
+
+GKrellm 2.0:
+
+make gkrellm2
+make installgkrellm2
+
+
+
+Season the Makefile to taste.

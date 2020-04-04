@@ -1,0 +1,27 @@
+0.8 - added/fixed handling of exiting processes to avoid
+      zombies
+    - switched to execvp instead of execv to include
+      default search paths for executables automatically
+
+0.7 - added command execution on click option 
+      ( contributed by James Smith <james_AT_floppy.co.uk> )
+    - added input line for preferred terminal
+
+0.6 - added ability to exclude nice time from calculations
+      as preferences item (now SETI@HOME friendly)
+    - (kept Gkrellm 1.2.x and 2.0 compatibility)
+
+0.5 - port to GKrellm 2.0 (thanks to Bill Nalen)
+    - port to Win32 (thanks to Bill Nalen)
+    - kept the code downwards compatible
+    - updated the Makefile
+
+0.4 - port to GKrellm 1.2.x
+
+0.3 - stops /proc/stat parsing after the first found cpu line,
+      shows better results on SMP machines
+
+0.2 - minor cleanups, about box
+
+0.1 - initial version
+
